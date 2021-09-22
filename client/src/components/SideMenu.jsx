@@ -17,29 +17,32 @@ import {
 
 const SideMenu = () => {
   return (
-    <SideWrapper>
-      <SidebarTitle>DashBoard</SidebarTitle>
-      <IconWrapper>
-        <IconInnerWrapper>
-          <IconMargin>
-            <LineStyle />
-          </IconMargin>
-          Home
-        </IconInnerWrapper>
-        <IconInnerWrapper>
-          <IconMargin>
-            <Timeline />
-          </IconMargin>
-          Analytics
-        </IconInnerWrapper>
-        <IconInnerWrapper>
-          <IconMargin>
-            <TrendingUp />
-          </IconMargin>
-          Sales
-        </IconInnerWrapper>
-      </IconWrapper>
-    </SideWrapper>
+    <>
+      {" "}
+      <SideWrapper>
+        <SidebarTitle>DashBoard</SidebarTitle>
+        <IconWrapper>
+          <IconInnerWrapper>
+            <IconMargin>
+              <LineStyle />
+            </IconMargin>
+            Home
+          </IconInnerWrapper>
+          <IconInnerWrapper>
+            <IconMargin>
+              <Timeline />
+            </IconMargin>
+            Analytics
+          </IconInnerWrapper>
+          <IconInnerWrapper>
+            <IconMargin>
+              <TrendingUp />
+            </IconMargin>
+            Sales
+          </IconInnerWrapper>
+        </IconWrapper>
+      </SideWrapper>
+    </>
   );
 };
 

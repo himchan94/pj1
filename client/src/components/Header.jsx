@@ -6,7 +6,7 @@ const Header = () => {
     <>
       <HeaderWrapper>
         <Wrapper>
-          <Logo>Himchan Hospital</Logo>
+          <Logo>Medical App</Logo>
           <RightWrapper>
             <IconWrapper>
               <NotificationsNone />

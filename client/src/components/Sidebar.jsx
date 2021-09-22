@@ -15,7 +15,8 @@ const Sidebar = () => {
 export default Sidebar;
 
 const SideWrapper = styled.div`
-  height: calc(100vh-50px);
+  height: calc(100vh - 70px);
   flex: 1;
   background-color: rgb(251, 251, 255);
+  position: sticky;
 `;
