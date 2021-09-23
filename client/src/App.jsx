@@ -3,15 +3,7 @@ import "./app.css";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Wrapper from "./components/Wrapper";
-import ContentPage from "./components/ContentPage";
-
-import { json } from "d3";
-
-const url = "https://covid19.mathdro.id/api/deaths";
-
-json(url).then((data) => {
-  console.log(data);
-});
+import CancerResearch from "./pages/CancerResearch";
 
 function App() {
   return (
@@ -19,6 +11,7 @@ function App() {
       <Header />
       <Wrapper>
         <Sidebar />
+        <CancerResearch />
       </Wrapper>
     </div>
   );

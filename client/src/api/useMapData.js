@@ -3,7 +3,7 @@ import { json } from "d3";
 import { feature } from "topojson";
 
 const jsonUrl =
-  "https://raw.githubusercontent.com/southkorea/southkorea-maps/master/kostat/2018/json/skorea-provinces-2018-topo-simple.json";
+  "https://gist.githubusercontent.com/himchan94/801fc9f88b1a86d4667c6a50f8205f2c/raw/5f993a5a59c8ca21074096560ae0076f30075297/SouthKoreaMap.json";
 
 const geoColumn = "skorea_provinces_2018_geo";
 
