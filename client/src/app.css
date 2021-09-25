@@ -24,3 +24,19 @@
 .marks .land:hover {
   fill: orange;
 }
+
+text {
+  font-size: 15px;
+}
+
+g {
+  stroke-width: 0.1px;
+}
+
+.tick line {
+  stroke-width: 0.1px;
+}
+
+.tick text {
+  font-size: 2px;
+}

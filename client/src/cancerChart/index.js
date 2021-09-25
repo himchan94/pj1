@@ -1,18 +1,18 @@
-import { scaleBand, extent, scaleLog } from "d3";
+import { scaleBand, extent, scaleLog, pie, arc, scaleOrdinal } from "d3";
 import { useRef } from "react";
 import styled from "styled-components";
 import { useCancerData } from "../api/useCancerData";
 
 import React, { useEffect } from "react";
-import * as d3 from "d3";
 
 import { YAxis } from "./YAxis";
 import { XAxis } from "./XAxis";
 import { Marks } from "./Marks";
+import { Slice } from "./Slice.js";
 
-const width = 960;
-const height = 700;
-const margin = { top: 20, right: 20, bottom: 65, left: 80 };
+const width = 100;
+const height = 100;
+const margin = { top: 3, right: 2, bottom: 6.5, left: 5 };
 
 export const CancerBar = () => {
   const data = useCancerData();
@@ -37,13 +37,18 @@ export const CancerBar = () => {
 
   const yScale = scaleLog()
     .domain(extent(data, yTotal))
-    .range([height - 65, 0])
+    .range([height - 6.5, 0])
     .nice();
 
   return (
     <>
       <Tooltip ref={tooltip} />
-      <svg viewBox="0 0 960 700">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
         <g transform={`translate(${margin.left},${margin.top})`}>
           <XAxis xScale={xScale} height={height} xValue={xValue} />
           <YAxis yScale={yScale} width={width} height={height} />
@@ -66,80 +71,46 @@ const Tooltip = styled.div`
   visibility: hidden;
   position: absolute;
   background-color: red;
-  font-size: 1.5rem;
+  font-size: 1rem;
 `;
 
-const data = [
-  { item: "A", count: 590 },
-  { item: "B", count: 291 },
-  { item: "C", count: 348 },
-  { item: "D", count: 145 },
-  { item: "E", count: 46 },
-];
-
 export const Pie = () => {
-  const pieChart = useRef();
+  const tooltip = useRef();
+  const data = [
+    { region: "경기", number: 1000 },
+    { region: "경기", number: 500 },
+  ];
 
-  useEffect(() => {
-    // Get positions for each data object
-    const piedata = d3.pie().value((d) => d.count)(data);
-    // Define arcs for graphing
-    const arc = d3.arc().innerRadius(0).outerRadius(200);
+  if (!data) {
+    return <pre>Loading...</pre>;
+  }
 
-    const colors = d3.scaleOrdinal([
-      "#ffa822",
-      "#134e6f",
-      "#ff6150",
-      "#1ac0c6",
-      "#dee0e6",
-    ]);
+  const piedata = pie().value((d) => d.number)(data);
+  const arcRad = arc().innerRadius(0).outerRadius(50);
+  const colors = scaleOrdinal(["#156B90", "#9A3E25"]);
 
-    // Define the size and position of svg
-    const svg = d3
-      .select(pieChart.current)
-
-      // .style('background-color','yellow')
-      .append("g")
-      .attr("transform", "translate(300,300)");
-
-    // Add tooltip
-    const tooldiv = d3
-      .select("#chartArea")
-      .append("div")
-      .style("visibility", "hidden")
-      .style("position", "absolute")
-      .style("background-color", "red");
-
-    // Draw pie
-    svg
-      .append("g")
-      .selectAll("path")
-      .data(piedata)
-      .join("path")
-      .attr("d", arc)
-      .attr("fill", (d, i) => colors(i))
-      .attr("stroke", "white")
-      .on("mouseover", (e, d) => {
-        console.log(e);
-        console.log(d);
-
-        tooldiv
-          .style("visibility", "visible")
-          .text(`${d.data.item}:` + `${d.data.count}`);
-      })
-      .on("mousemove", (e, d) => {
-        tooldiv
-          .style("top", e.pageY - 50 + "px")
-          .style("left", e.pageX - 50 + "px");
-      })
-      .on("mouseout", () => {
-        tooldiv.style("visibility", "hidden");
-      });
-  });
+  console.log(piedata);
 
   return (
-    <div id="chartArea">
-      <svg viewBox="0 0 960 760 " ref={pieChart}></svg>
-    </div>
+    <>
+      <Tooltip ref={tooltip} />
+      <div className="container">
+        <svg
+          height="100%"
+          width="100%"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
+          <Slice
+            piedata={piedata}
+            width={width}
+            height={height}
+            colors={colors}
+            arcRad={arcRad}
+            tooltip={tooltip}
+          />
+        </svg>
+      </div>
+    </>
   );
 };

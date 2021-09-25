@@ -4,8 +4,8 @@ import { useMapData } from "../api/useMapData.js";
 
 import { Marks } from "./Marks";
 
-const width = 960;
-const height = 600;
+const width = 500;
+const height = 500;
 
 export const KoreanMap = () => {
   const data = useMapData();
@@ -18,7 +18,12 @@ export const KoreanMap = () => {
   return (
     <>
       <Tooltip ref={tooltip} />
-      <svg viewBox="0 0 960 600">
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
+      >
         <Marks data={data} tooltip={tooltip} />
       </svg>
     </>
@@ -29,5 +34,5 @@ const Tooltip = styled.div`
   visibility: hidden;
   position: absolute;
   background-color: red;
-  font-size: 1.5rem;
+  font-size: 1rem;
 `;

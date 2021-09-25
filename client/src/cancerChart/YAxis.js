@@ -7,9 +7,9 @@ export const YAxis = ({ yScale, width, height }) => {
     const yAxisG = select(ref.current);
     const yAxis = axisLeft(yScale)
       .tickSize(-width)
-      .tickPadding(10)
-      .ticks(10, "~m");
-
+      .tickPadding(1)
+      .ticks(10, "~s")
+      .tickSizeOuter(0);
     //.tickFormat((tickValue) => tickValue);
     yAxisG.call(yAxis);
   }, []);

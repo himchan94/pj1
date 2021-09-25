@@ -1,7 +1,7 @@
 import { geoPath, geoMercator, geoBounds, geoCentroid, geoDistance } from "d3";
 
-const width = 960;
-const height = 600;
+const width = 100;
+const height = 100;
 
 const projection = geoMercator().translate([width / 2, height / 2]);
 const path = geoPath(projection);
@@ -10,7 +10,7 @@ export const Marks = ({ data: { land }, tooltip }) => {
   const bounds = geoBounds(land);
   const center = geoCentroid(land);
   const distance = geoDistance(bounds[0], bounds[1]);
-  const scale = (height / distance / Math.sqrt(2)) * 1.5;
+  const scale = (height / distance / Math.sqrt(2)) * 2;
 
   projection.scale(scale).center(center);
 

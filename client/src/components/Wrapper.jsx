@@ -8,6 +8,6 @@ export default Wrapper;
 
 const PageWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   margin-top: 20px;
+  max-height: calc(100vh - 70px); ;
 `;

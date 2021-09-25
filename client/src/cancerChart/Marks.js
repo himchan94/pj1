@@ -1,3 +1,4 @@
+import * as d3 from "d3";
 export const Marks = ({
   data,
   xScale,
@@ -15,7 +16,7 @@ export const Marks = ({
           x={xScale(xValue(d))}
           y={yScale(yTotal(d))}
           width={xScale.bandwidth()}
-          height={height - 65 - yScale(yTotal(d))}
+          height={height - 6.5 - yScale(yTotal(d))}
           fill="#688BAB"
           onMouseOver={(e) => {
             tooltip.current.style.visibility = "visible";
