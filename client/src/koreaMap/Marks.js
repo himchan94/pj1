@@ -6,11 +6,11 @@ const height = 100;
 const projection = geoMercator().translate([width / 2, height / 2]);
 const path = geoPath(projection);
 
-export const Marks = ({ data: { land }, tooltip }) => {
+export const Marks = ({ mapdata: { land }, tooltip, setCity, city }) => {
   const bounds = geoBounds(land);
   const center = geoCentroid(land);
   const distance = geoDistance(bounds[0], bounds[1]);
-  const scale = (height / distance / Math.sqrt(2)) * 2;
+  const scale = (height / distance / Math.sqrt(2)) * 1;
 
   projection.scale(scale).center(center);
 
@@ -33,6 +33,10 @@ export const Marks = ({ data: { land }, tooltip }) => {
               onMouseLeave={(e) => {
                 tooltip.current.style.visibility = "hidden";
               }}
+              onClick={(e) => {
+                setCity(feature.properties.name);
+              }}
+              fill={city === feature.properties.name ? "red" : "gainsboro"}
             />
           );
         })}

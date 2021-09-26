@@ -1,16 +1,27 @@
+import { useState } from "react";
+
 import styled from "styled-components";
 import { KoreanMap } from "../koreaMap";
 import { CancerBar } from "../cancerChart";
 import { Pie } from "../cancerChart";
-import { style } from "d3";
+
+import { useCancerData } from "../api/useCancerData";
+import { useMapData } from "../api/useMapData.js";
 
 const CancerResearch = () => {
+  const [city, setCity] = useState(null);
+
+  const cancerdata = useCancerData();
+  const mapdata = useMapData();
+
+  console.log(city);
+
   return (
     <PageWrapper>
       <Container>
         <RightWrapper>
           <RightUpper>
-            <KoreanMap />
+            <KoreanMap mapdata={mapdata} city={city} setCity={setCity} />
           </RightUpper>
           <RightBottom>
             <Pie />
@@ -46,6 +57,8 @@ const RightWrapper = styled.div`
 
 const RightUpper = styled.div`
   height: 50%;
+  /* flex: 1; */
+
   border-radius: 10px;
   padding: 20px;
   -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
@@ -54,6 +67,8 @@ const RightUpper = styled.div`
 
 const RightBottom = styled.div`
   height: 50%;
+  /* flex: 1; */
+  /* flex-shrink: 2; */
   border-radius: 10px;
   padding: 20px;
   -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
