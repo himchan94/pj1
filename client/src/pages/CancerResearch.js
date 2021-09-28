@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import styled from "styled-components";
 import { KoreanMap } from "../koreaMap";
@@ -7,14 +7,14 @@ import { Pie } from "../cancerChart";
 
 import { useCancerData } from "../api/useCancerData";
 import { useMapData } from "../api/useMapData.js";
+import { useSexRatio } from "../api/useSexRatio.js";
 
 const CancerResearch = () => {
-  const [city, setCity] = useState(null);
+  const [city, setCity] = useState("서울");
 
   const cancerdata = useCancerData();
   const mapdata = useMapData();
-
-  console.log(city);
+  const filteredDb = useSexRatio(cancerdata, city);
 
   return (
     <PageWrapper>
@@ -24,12 +24,12 @@ const CancerResearch = () => {
             <KoreanMap mapdata={mapdata} city={city} setCity={setCity} />
           </RightUpper>
           <RightBottom>
-            <Pie />
+            <Pie data={filteredDb} />
           </RightBottom>
         </RightWrapper>
         <LeftWrapper>
           <LeftContent>
-            <CancerBar />
+            <CancerBar data={cancerdata} city={city} setCity={setCity} />
           </LeftContent>
         </LeftWrapper>
       </Container>

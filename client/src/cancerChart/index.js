@@ -1,7 +1,6 @@
 import { scaleBand, extent, scaleLog, pie, arc, scaleOrdinal } from "d3";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import styled from "styled-components";
-import { useCancerData } from "../api/useCancerData";
 
 import React, { useEffect } from "react";
 
@@ -14,8 +13,7 @@ const width = 100;
 const height = 100;
 const margin = { top: 3, right: 2, bottom: 6.5, left: 5 };
 
-export const CancerBar = () => {
-  const data = useCancerData();
+export const CancerBar = ({ city, setCity, data }) => {
   const tooltip = useRef();
 
   if (!data) {
@@ -25,8 +23,6 @@ export const CancerBar = () => {
   // useEffect(() => {}, []);
 
   const xValue = (d) => d.region;
-  const yFemale = (d) => d.female;
-  const yMale = (d) => d.male;
   const yTotal = (d) => d.total;
 
   const xScale = scaleBand()
@@ -47,7 +43,7 @@ export const CancerBar = () => {
         width="100%"
         height="100%"
         viewBox="0 0 100 100"
-        preserveAspectRatio="none"
+        perserveaspectratio="none"
       >
         <g transform={`translate(${margin.left},${margin.top})`}>
           <XAxis xScale={xScale} height={height} xValue={xValue} />
@@ -60,6 +56,8 @@ export const CancerBar = () => {
             height={height}
             xValue={xValue}
             tooltip={tooltip}
+            city={city}
+            setCity={setCity}
           />
         </g>
       </svg>
@@ -74,43 +72,39 @@ const Tooltip = styled.div`
   font-size: 1rem;
 `;
 
-export const Pie = () => {
+export const Pie = ({ data }) => {
+  const width = 100;
+  const height = 100;
   const tooltip = useRef();
-  const data = [
-    { region: "경기", number: 1000 },
-    { region: "경기", number: 500 },
-  ];
 
-  if (!data) {
+  if (!data || !data.male.region) {
     return <pre>Loading...</pre>;
   }
 
-  const piedata = pie().value((d) => d.number)(data);
+  console.log("pie data", data);
+
+  const piedata = pie().value((d) => d.number)(Object.values(data));
   const arcRad = arc().innerRadius(0).outerRadius(50);
   const colors = scaleOrdinal(["#156B90", "#9A3E25"]);
-
-  console.log(piedata);
 
   return (
     <>
       <Tooltip ref={tooltip} />
-      <div className="container">
-        <svg
-          height="100%"
-          width="100%"
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-        >
-          <Slice
-            piedata={piedata}
-            width={width}
-            height={height}
-            colors={colors}
-            arcRad={arcRad}
-            tooltip={tooltip}
-          />
-        </svg>
-      </div>
+      <svg
+        width="100%"
+        height="100%"
+        viewBox="0 0 100 100"
+        perserveaspectratio="none"
+      >
+        <Slice
+          piedata={piedata}
+          width={width}
+          height={height}
+          colors={colors}
+          arcRad={arcRad}
+          tooltip={tooltip}
+        />
+      </svg>
     </>
   );
 };

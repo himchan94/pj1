@@ -7,6 +7,8 @@ export const Marks = ({
   height,
   xValue,
   tooltip,
+  city,
+  setCity,
 }) => {
   return data.map((d, idx) => {
     return (
@@ -17,7 +19,7 @@ export const Marks = ({
           y={yScale(yTotal(d))}
           width={xScale.bandwidth()}
           height={height - 6.5 - yScale(yTotal(d))}
-          fill="#688BAB"
+          fill={city === xValue(d) ? "#F2DA57" : "#688BAB"}
           onMouseOver={(e) => {
             tooltip.current.style.visibility = "visible";
           }}
@@ -28,6 +30,9 @@ export const Marks = ({
           }}
           onMouseLeave={(e) => {
             tooltip.current.style.visibility = "hidden";
+          }}
+          onClick={() => {
+            setCity(xValue(d));
           }}
         />
       </g>
