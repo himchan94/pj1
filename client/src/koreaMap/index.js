@@ -1,30 +1,31 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
-import { useMapData } from "../api/useMapData.js";
 
 import { Marks } from "./Marks";
 
-const width = 500;
-const height = 500;
-
-export const KoreanMap = () => {
-  const data = useMapData();
+export const KoreanMap = ({ mapdata, setCity, city }) => {
   const tooltip = useRef();
 
-  if (!data) {
+  if (!mapdata) {
     return <pre>Loading...</pre>;
   }
 
   return (
     <>
+      <h1>{city}</h1>
       <Tooltip ref={tooltip} />
       <svg
         width="100%"
         height="100%"
         viewBox="0 0 100 100"
-        preserveAspectRatio="none"
+        perserveaspectratio="none"
       >
-        <Marks data={data} tooltip={tooltip} />
+        <Marks
+          mapdata={mapdata}
+          tooltip={tooltip}
+          setCity={setCity}
+          city={city}
+        />
       </svg>
     </>
   );

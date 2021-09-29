@@ -17,27 +17,30 @@ export const Marks = ({ mapdata: { land }, tooltip, setCity, city }) => {
   return (
     <>
       <g className="marks">
-        {land.features.map((feature) => {
+        {land.features.map((feature, idx) => {
           return (
-            <path
-              className="land"
-              d={path(feature)}
-              onMouseOver={(e) => {
-                tooltip.current.style.visibility = "visible";
-              }}
-              onMouseMove={(e) => {
-                tooltip.current.style.top = `${e.pageY - 50}px`;
-                tooltip.current.style.left = `${e.pageX - 50}px`;
-                tooltip.current.innerHTML = `${feature.properties.name}`;
-              }}
-              onMouseLeave={(e) => {
-                tooltip.current.style.visibility = "hidden";
-              }}
-              onClick={(e) => {
-                setCity(feature.properties.name);
-              }}
-              fill={city === feature.properties.name ? "red" : "gainsboro"}
-            />
+            <g key={idx}>
+              {" "}
+              <path
+                className="land"
+                d={path(feature)}
+                onMouseOver={(e) => {
+                  tooltip.current.style.visibility = "visible";
+                }}
+                onMouseMove={(e) => {
+                  tooltip.current.style.top = `${e.pageY - 50}px`;
+                  tooltip.current.style.left = `${e.pageX - 50}px`;
+                  tooltip.current.innerHTML = `${feature.properties.name}`;
+                }}
+                onMouseLeave={(e) => {
+                  tooltip.current.style.visibility = "hidden";
+                }}
+                onClick={(e) => {
+                  setCity(feature.properties.name);
+                }}
+                fill={city === feature.properties.name ? "red" : "gainsboro"}
+              />
+            </g>
           );
         })}
       </g>
