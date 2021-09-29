@@ -14,7 +14,7 @@ const CancerResearch = () => {
 
   const cancerdata = useCancerData();
   const mapdata = useMapData();
-  const filteredDb = useSexRatio(cancerdata, city);
+  // const filteredDb = useSexRatio(cancerdata, city);
 
   return (
     <PageWrapper>
@@ -24,7 +24,7 @@ const CancerResearch = () => {
             <KoreanMap mapdata={mapdata} city={city} setCity={setCity} />
           </RightUpper>
           <RightBottom>
-            <Pie data={filteredDb} />
+            <Pie data={cancerdata} city={city} />
           </RightBottom>
         </RightWrapper>
         <LeftWrapper>

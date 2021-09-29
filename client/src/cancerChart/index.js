@@ -72,18 +72,31 @@ const Tooltip = styled.div`
   font-size: 1rem;
 `;
 
-export const Pie = ({ data }) => {
+export const Pie = ({ data, city }) => {
   const width = 100;
   const height = 100;
   const tooltip = useRef();
 
-  if (!data || !data.male.region) {
+  const [db, setDb] = useState({
+    male: { region: null, number: null },
+    female: { region: null, number: null },
+  });
+
+  useEffect(() => {
+    if (data) {
+      const filtered = data.filter((d) => d.region === city);
+
+      const arr1 = { region: filtered[0].region, number: filtered[0].male };
+      const arr2 = { region: filtered[0].region, number: filtered[0].female };
+      setDb({ ...db, male: arr1, female: arr2 });
+    }
+  }, [data, city]);
+
+  if (!data || !db.male.region) {
     return <pre>Loading...</pre>;
   }
 
-  console.log("pie data", data);
-
-  const piedata = pie().value((d) => d.number)(Object.values(data));
+  const piedata = pie().value((d) => d.number)(Object.values(db));
   const arcRad = arc().innerRadius(0).outerRadius(50);
   const colors = scaleOrdinal(["#156B90", "#9A3E25"]);
 
